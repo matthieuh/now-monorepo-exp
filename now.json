@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "name": "monorepo",
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@now/static"
+    },
+    {
+      "src": "app1/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "../build_app1" }
+    },
+    {
+      "src": "app2/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "../build_app2" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "static/$1"
+    },
+    { "src": "/(.*)/favicon.ico", "dest": "/$1/favicon.ico" },
+    { "src": "/(.*)/asset-manifest.json", "dest": "/$1/asset-manifest.json" },
+    { "src": "/(.*)/manifest.json", "dest": "/$1/manifest.json" },
+    {
+      "src": "/en/(.*)",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "app1/$1"
+    },
+    {
+      "src": "/se/(.*)",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "app2/$1"
+    }
+  ]
+}

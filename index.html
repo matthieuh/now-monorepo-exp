@@ -1,0 +1,14 @@
+<h1>HOME</h1>
+
+<script>
+    const lang = navigator.languages
+        ? navigator.languages[0]
+        : (navigator.language || navigator.userLanguage);
+
+    console.log('lang', lang);
+    if (lang.includes('sv')) {
+        window.location.replace(window.location + "se/");
+    } else {
+        window.location.replace(window.location + "en/");
+    }
+</script>
